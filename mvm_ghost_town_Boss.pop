@@ -192,8 +192,8 @@ WaveSchedule
 				{
 					ClassIcon  "Scout_Giant_Fast"
 					Template T_TFBot_Giant_Scout_Fast
-					Name "Super Sonic"
-					Health 27500
+					Name "Breath Taker"
+					Health 37500
 					Tag "bot_giant"
 					Attributes "AlwaysCrit"
 					Attributes "MiniBoss"
@@ -256,6 +256,7 @@ WaveSchedule
 			TFBot
 			{
 				Template T_TFBot_Giant_Soldier_SlowBarrage
+				Health 4500
 				Attributes AlwaysCrit
 				Item "Idiot box"
 				Item "Shoestring Budget"
@@ -284,11 +285,12 @@ WaveSchedule
 		{
 			Name "wave03"
 			Where spawnbot
-			TotalCount 1
-			MaxActive 1
+			TotalCount 2
+			MaxActive 2
 			SpawnCount 1
 			WaitForAllDead "wave02"
-			WaitBeforeStarting 8
+			WaitBeforeStarting 3
+			WaitBetweenSpawns 50
 			TotalCurrency 300
 
 			TFBot
@@ -401,10 +403,10 @@ WaveSchedule
 				Item "Spine-Chilling Skull"
 			}
 		}
-		WaveSpawn //WAVE 05c: [2 TANKS]  
+		WaveSpawn //WAVE 05c: [3 TANKS]  
 		{
 			Name "wave05"
-			TotalCount 2
+			TotalCount 3
 			WaitForAllDead "wave04"
 			WaitBeforeStarting 55
 			WaitBetweenSpawns 30
@@ -418,7 +420,7 @@ WaveSchedule
 
 			Tank
 			{
-				Health 60000
+				Health 75000
 				Speed 75
 				Name "tankboss"
 				StartingPathTrackNode "boss_path_1"
@@ -463,11 +465,11 @@ WaveSchedule
 				ItemAttributes
 				{
 					ItemName "The Direct Hit"
-					"damage bonus"	2.0 
+					"damage bonus"	5.0 
 				}
 				CharacterAttributes 
 				{
-					"increase buff duration"	9.0					
+					"increase buff duration"	19.0					
 				}
 			}
 		}
@@ -542,7 +544,7 @@ WaveSchedule
 				}
 			}
 		}
-		WaveSpawn //WAVE 07b: 96 total, 16 active, Spy 
+		WaveSpawn //WAVE 07b: 200 total, 20 active, Spy 
 		{
 			Name "wave07"
 			Where spawnbot
@@ -558,6 +560,29 @@ WaveSchedule
 			{
 				Class Spy
 				Skill Expert
+			}
+		}
+		WaveSpawn //WAVE 07b: [GIANT] 5 total, 5 active, Pyro
+		{
+			Name "wave07"
+			Where spawnbot
+			TotalCount 5
+			MaxActive 1
+			SpawnCount 1
+			WaitForAllDead "wave06b"
+			WaitBeforeStarting 60
+			WaitBetweenSpawns 20
+			TotalCurrency 200		
+		
+			TFBot
+			{
+				Class Pyro
+				Skill Expert
+				Template T_TFBot_Chief_Pyro
+				Name "Chef Ramsay
+				Attribiutes AlwaysCrit
+				Attribiutes UseBossHealthBar
+				Health 97500
 			}
 		}
 	//STAGE 08 //Currency 1400 ///////////////////////////////////////////////////////////////////////////////////////////////////////
