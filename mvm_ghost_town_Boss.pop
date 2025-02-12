@@ -6,7 +6,7 @@ WaveSchedule
 
 	StartingCurrency		20000
 	RespawnWaveTime 		20
-	CanBotsAttackWhileInSpawnRoom no
+	CanBotsAttackWhileInSpawnRoom Yes
 	FixedRespawnWaveTime No
 
 	Mission // sentry buster
@@ -79,7 +79,7 @@ WaveSchedule
 		{
 			Name "wave01"
 			Where spawnbot
-			TotalCount 30
+			TotalCount 60
 			MaxActive 10
 			SpawnCount 10
 			WaitBeforeStarting 0
@@ -93,7 +93,7 @@ WaveSchedule
 				Item "Point and Shoot"
 			}
 		}
-		WaveSpawn //WAVE 01b: 32 total, 8 active, Pyro (always fire)
+		WaveSpawn //WAVE 01b: 64 total, 8 active, Pyro (always fire)
 		{
 			Name "wave01"
 			Where spawnbot
@@ -128,6 +128,24 @@ WaveSchedule
 				Template T_TFBot_Giant_DemoMan_PrinceTavish
 				Attributes AlwaysCrit
 				Item "Spine-Chilling Skull"
+			}
+			WaveSpawn //WAVE01d: [GIANT] 2 total, 2 active
+			{
+				Name "wave01" 
+				Where Spawnbot
+				TotalCount 2
+				MaxActive 2 
+				SpawnCount 2 
+				TotalCurrency 50
+					{ 
+						TFBot
+						Template T_TFBot_Chief_Pyro
+						Name "Breath Taker"
+						Health 75000
+						Attributes AlwaysCrit
+						Attributes UseBossHealthBar
+						Attributes AlwaysFireWeapon
+					}
 			}
 		}
 	//STAGE 02 //Currency 600 ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -189,7 +207,7 @@ WaveSchedule
 		{
 			Name "wave03"
 			Where spawnbot
-			TotalCount 40
+			TotalCount 75
 			MaxActive 10
 			SpawnCount 5
 			WaitForAllDead "wave02"
@@ -208,7 +226,7 @@ WaveSchedule
 		{
 			Name "wave03"
 			Where spawnbot
-			TotalCount 40
+			TotalCount 75
 			MaxActive 10
 			SpawnCount 5
 			WaitForAllDead "wave02"
@@ -237,7 +255,7 @@ WaveSchedule
 		
 			TFBot
 			{
-				Template T_TFBot_Giant_Soldier_Spammer
+				Template T_TFBot_Giant_Soldier_SlowBarrage
 				Attributes AlwaysCrit
 				Item "Idiot box"
 				Item "Shoestring Budget"
@@ -301,7 +319,7 @@ WaveSchedule
 			TFBot
 			{
 				Class Scout
-				Template T_TFBot_Giant_Scout
+				Template T_TFBot_Giant_Scout_Fast
 				Health 3000
 				Skill Easy
 				Attributes AlwaysCrit
@@ -453,7 +471,7 @@ WaveSchedule
 				}
 			}
 		}
-		WaveSpawn //WAVE 06b: [GIANT] 4(8) total, 4(8) active, Heavyweapons (Always Crit + Giant medic)
+		WaveSpawn //WAVE 06b: [GIANT] 8(16) total, 8(16) active, Heavyweapons (Always Crit + Giant medic)
 		{
 			Name "wave06b"
 			Where spawnbot
@@ -462,7 +480,7 @@ WaveSchedule
 			SpawnCount 2
 			WaitForAllSpawned "wave06a"
 			WaitBeforeStarting 0
-			WaitBetweenSpawns 30
+			WaitBetweenSpawns 45
 			TotalCurrency 400		
 		
 			Squad
@@ -471,6 +489,7 @@ WaveSchedule
 				{
 					Template T_TFBot_Giant_Heavyweapons_Deflector
 					Health 95000
+					Name "Hope Destroyer"
 					Attributes AlwaysCrit
 					Attributes MiniBoss
 					Attributes UseBossHealthbar
@@ -480,6 +499,8 @@ WaveSchedule
 				{
 					Template T_TFBot_Giant_Medic
 					Health 75000
+					Name "Uncle Larry"
+					Attributes UseBossHealthBar
 					Item "The Warsworn Helmet"
 				}
 			}
@@ -718,15 +739,16 @@ WaveSchedule
 			TotalCount 6
 			MaxActive 6
 			SpawnCount 1
-			WaitForAllSpawned "wave08a"
+			WaitForAllDead "wave07"
 			WaitBeforeStarting 5
-			WaitBetweenSpawns 180
+			WaitBetweenSpawns 50
 			TotalCurrency 300		
 	
 				TFBot
 				{
 					Template T_TFBot_Chief_Soldier_SlowCrit
 					Skill Expert
+					Name "Big Chungus"
 					Health 120000
 					Attributes AlwaysCrit
 					Item "Valley Forge"
