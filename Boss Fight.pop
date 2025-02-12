@@ -6,7 +6,7 @@ WaveSchedule
 
 	StartingCurrency		20000
 	RespawnWaveTime 		20
-	CanBotsAttackWhileInSpawnRoom no
+	CanBotsAttackWhileInSpawnRoom Yes
 	FixedRespawnWaveTime No
 
 	Mission // sentry buster
@@ -739,9 +739,9 @@ WaveSchedule
 			TotalCount 6
 			MaxActive 6
 			SpawnCount 1
-			WaitForAllSpawned "wave08a"
+			WaitForAllDead "wave07"
 			WaitBeforeStarting 5
-			WaitBetweenSpawns 180
+			WaitBetweenSpawns 50
 			TotalCurrency 300		
 	
 				TFBot
