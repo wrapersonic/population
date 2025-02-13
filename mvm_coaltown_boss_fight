@@ -1,0 +1,808 @@
+#base robot_giant.pop
+#base robot_standard.pop
+
+WaveSchedule
+{
+
+	StartingCurrency		25000
+	RespawnWaveTime 		20
+	CanBotsAttackWhileInSpawnRoom Yes
+	FixedRespawnWaveTime No
+
+	Mission // sentry buster
+	{
+		Objective DestroySentries
+
+		InitialCooldown 120
+		Where spawnbot
+		BeginAtWave 1
+		RunForThisManyWaves 1
+
+		CooldownTime 120            
+
+            TFBot
+			{
+				Template T_TFBot_SentryBuster
+            }
+	}
+	Mission // Spy - wave 1
+	{
+		Objective Spy  
+
+		InitialCooldown 180
+		Where spawnbot_mission_spy
+		BeginAtWave 1
+		RunForThisManyWaves 1
+		CooldownTime 60
+		DesiredCount 8
+
+		TFBot
+		{
+			Class Spy
+			Skill Expert
+			Name Spy
+		}
+	}	
+	Mission // Sniper - wave 1
+	{
+		Objective Sniper
+
+		InitialCooldown 120
+		Where spawnbot_mission_sniper
+		BeginAtWave 1
+		RunForThisManyWaves 1
+		CooldownTime 60
+		DesiredCount 8
+
+		TFBot
+		{
+			Class Sniper
+			Skill Hard
+			Name Sniper
+			MaxVisionRange 3000
+		}
+	}
+	
+	Wave
+	{
+		StartWaveOutput
+			{
+				Target wave_start_relay_666
+				Action Trigger
+			}
+
+		Checkpoint Yes
+		
+	//STAGE 01 //Currency 700 ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		WaveSpawn //WAVE 01a: 60 total, 20 active, Scout (bonk) 
+		{
+			Name "wave01"
+			Where spawnbot
+			TotalCount 60
+			MaxActive 20
+			SpawnCount 10
+			WaitBeforeStarting 2
+			WaitBetweenSpawns 0
+			TotalCurrency 300		
+		
+			TFBot
+			{
+				Template T_TFBot_Scout_Bonk
+				Attributes AlwaysCrit
+				Item "Point and Shoot"
+			}
+		}
+		WaveSpawn //WAVE 01b: 64 total, 8 active, Pyro (always fire)
+		{
+			Name "wave01"
+			Where spawnbot
+			TotalCount 64
+			MaxActive 16
+			SpawnCount 8
+			WaitBeforeStarting 3
+			WaitBetweenSpawns 7
+			TotalCurrency 200		
+		
+			TFBot
+			{
+				Class Pyro
+				Skill Easy
+				Attributes AlwaysFireWeapon
+				Item "Old Guadalajara"
+			}
+		}
+		WaveSpawn //WAVE 01c: [GIANT] 24 total, 8 active, Demoman (demoknight)
+		{
+			Name "wave01"
+			Where spawnbot
+			TotalCount 24
+			MaxActive 8
+			SpawnCount 4
+			WaitBeforeStarting 5
+			WaitBetweenSpawns 5
+			TotalCurrency 200		
+		
+			TFBot
+			{
+				Template T_TFBot_Giant_DemoMan_PrinceTavish
+				Attributes AlwaysCrit
+				Item "Spine-Chilling Skull"
+			}
+		}
+		WaveSpawn //WAVE 01a: [GIANT] 2 total, 2 active, Soldier 
+		{
+			Name "wave01"
+			Where spawnbot
+			TotalCount 2
+			MaxActive 2
+			SpawnCount 1
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 120
+			TotalCurrency 300		
+		
+			TFBot
+			{
+				Template T_TFBot_Chief_Soldier_Extended_Concheror
+				Health 88000
+				Name "Mr Krabs"
+				Attributes AlwaysCrit
+			}
+		}
+	//STAGE 02 //Currency 600 ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		WaveSpawn //WAVE 02a: [GIANT] 25(50) total, 25(50) active, Soldier (slow crit + uber medic)
+		{
+			Name "wave02"
+			Where spawnbot
+			TotalCount 50
+			MaxActive 25
+			SpawnCount 4
+			WaitForAllDead "wave01"
+			WaitBeforeStarting 5
+			WaitBetweenSpawns 2
+			TotalCurrency 400		
+		
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Soldier_Crit
+					Item "Idiot box"
+					Item "Shoestring Budget"
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_QuickUber
+					Item "The Warsworn Helmet"
+				}
+			}
+		}
+		WaveSpawn //WAVE 02b: [GIANT] 2 total, 2 active, Scout
+		{
+			Name "wave02"
+			Where spawnbot
+			TotalCount 2
+			MaxActive 2
+			Spawncount 1
+			WaitForAllDead "wave01"
+			WaitBeforeSpawning 3
+			WaitBetweenSpawns 60
+			TotalCurrency 200
+
+			TFBot
+			{
+				Template T_TFBot_Giant_Scout_Fast
+				Name "Sonic"
+				Health 37500
+				Attributes MiniBoss
+				Attributes AlwaysCrit
+				Attributes UseBossHealthBar
+			}
+		}
+	//STAGE 03 //Currency 1200 ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		WaveSpawn //WAVE 03a: 80 total, 10 active, Soldier 
+		{
+			Name "wave03"
+			Where spawnbot
+			TotalCount 80
+			MaxActive 10
+			SpawnCount 5
+			WaitForAllDead "wave02"
+			WaitBeforeStarting 8
+			WaitBetweenSpawns 2
+			TotalCurrency 300		
+		
+			TFBot
+			{
+				Class Soldier
+				Skill Easy
+				Item "Defiant Spartan"
+			}
+		}
+		WaveSpawn //WAVE 03b: 80 total, 10 active, Heavyweapons 
+		{
+			Name "wave03"
+			Where spawnbot
+			TotalCount 80
+			MaxActive 10
+			SpawnCount 5
+			WaitForAllDead "wave02"
+			WaitBeforeStarting 8
+			WaitBetweenSpawns 2
+			TotalCurrency 300		
+		
+			TFBot
+			{
+				Class Heavyweapons
+				Skill Easy
+				Item "The Crone's Dome"
+			}
+		}
+		WaveSpawn //WAVE 03c: [GIANT] 15 total, 5 active, Soldier 
+		{
+			Name "wave03"
+			Where spawnbot
+			TotalCount 5
+			MaxActive 2
+			SpawnCount 1
+			WaitForAllDead "wave02"
+			WaitBeforeStarting 8
+			WaitBetweenSpawns 30
+			TotalCurrency 200		
+		
+			TFBot
+			{
+				Template T_TFBot_Giant_Soldier_Spammer
+				Item "Idiot box"
+				Item "Shoestring Budget"
+			}
+		}
+		WaveSpawn //WAVE 03d: [GIANT] 15 total, 5 active, Heavyweapons 
+		{
+			Name "wave03"
+			Where spawnbot
+			TotalCount 5
+			MaxActive 2
+			SpawnCount 1
+			WaitForAllDead "wave02"
+			WaitBeforeStarting 8
+			WaitBetweenSpawns 30
+			TotalCurrency 200		
+		
+			TFBot
+			{
+				Template T_TFBot_Giant_Heavyweapons
+				Item "The Crone's Dome"
+			}
+		}
+		WaveSpawn //WAVE 03e: [GIANT] 5 total, 1 active, Pyro
+		{
+			Name "wave03"
+			Where spawnbot
+			TotalCount 2
+			MaxActive 2
+			Spawncount 1
+			WaitForAllDead "wave02"
+			WaitBeforeSpawning 3
+			WaitBetweenSpawns 5
+			TotalCurrency 200
+
+			TFBot
+			{
+				Template T_TFBot_Chief_Pyro
+				Name "Breath Taker"
+				Health 87500
+				Attributes MiniBoss
+				Attributes AlwaysCrit
+				Attributes UseBossHealthBar
+			}
+		}
+	//STAGE 04 //Currency 1200 ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		WaveSpawn //WAVE 04a: [GIANT] 180 total, 20 active, Scout
+		{
+			Name "wave04"
+			Where spawnbot_scattered
+			RandomSpawn 1
+			TotalCount 180
+			MaxActive 20
+			SpawnCount 5
+			WaitForAllDead "wave03"
+			WaitBeforeStarting 10
+			WaitBetweenSpawns 8
+			TotalCurrency 600		
+		
+			TFBot
+			{
+				Class Scout
+				Template T_TFBot_Giant_Scout_Fast
+				Skill Easy
+				Attributes AlwaysCrit
+				Item "Point and Shoot"
+			}
+		}
+		WaveSpawn //WAVE 04b: [5 TANKS]  
+		{
+			Name "wave04"
+			TotalCount 5
+			WaitForAllDead "wave03"
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 50
+			TotalCurrency 600
+			
+			FirstSpawnOutput                                                                                                                                                            
+			{
+				 Target boss_spawn_relay                                            
+				 Action Trigger                         
+			}
+
+			Tank
+			{
+				Health 55000
+				Speed 75
+				Name "tankboss"
+				StartingPathTrackNode "boss_path_1"
+
+				OnKilledOutput                                  
+				{
+					Target boss_dead_relay
+					Action Trigger                         
+				}
+				
+				OnBombDroppedOutput                             
+				{
+					Target boss_deploy_relay 
+					Action Trigger                         
+				}
+			}
+		}
+	//STAGE 05 //Currency 1000 ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		WaveSpawn //WAVE 05a: [GIANT] 120 total, 15 active, Demoman
+		{
+			Name "wave05"
+			Where spawnbot
+			TotalCount 120
+			MaxActive 15
+			SpawnCount 5
+			WaitForAllDead "wave04"
+			WaitBeforeStarting 10
+			WaitBetweenSpawns 10
+			TotalCurrency 500		
+		
+			TFBot
+			{
+				Template T_TFBot_Giant_Demo_RapidFire
+				Item "Spine-Chilling Skull"
+			}
+		}
+		WaveSpawn //WAVE 05b: 80 total, 5 active, Demoman (Eyelander + Charge N Targe)
+		{
+			Name "wave05"
+			Where spawnbot
+			TotalCount 80
+			MaxActive 5
+			SpawnCount 5
+			WaitForAllDead "wave04"
+			WaitBeforeStarting 30
+			WaitBetweenSpawns 8
+			TotalCurrency 500		
+		
+			TFBot
+			{
+				Template T_TFBot_Demoman_Knight
+				Attributes AlwaysCrit
+				Item "Spine-Chilling Skull"
+			}
+		}
+		WaveSpawn //WAVE 05c: [2 TANKS]  
+		{
+			Name "wave05"
+			TotalCount 2
+			WaitForAllDead "wave04"
+			WaitBeforeStarting 55
+			WaitBetweenSpawns 0
+			TotalCurrency 600
+			
+			FirstSpawnOutput                                                                                                                                                            
+			{
+				 Target boss_spawn_relay                                            
+				 Action Trigger                         
+			}
+
+			Tank
+			{
+				Health 60000
+				Speed 75
+				Name "tankboss"
+				StartingPathTrackNode "boss_path_1"
+
+				OnKilledOutput                                  
+				{
+					Target boss_dead_relay
+					Action Trigger                         
+				}
+				
+				OnBombDroppedOutput                             
+				{
+					Target boss_deploy_relay 
+					Action Trigger                         
+				}
+			}
+		}
+	//STAGE 06 //Currency 700 ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		WaveSpawn //WAVE 06a: 80 total, 20 active, Soldier (Direct hit, buff banner)
+		{
+			Name "wave06a"
+			Where spawnbot_scattered
+			RandomSpawn 1
+			TotalCount 40
+			MaxActive 20
+			SpawnCount 10
+			WaitForAllDead "wave05"
+			WaitBeforeStarting 15
+			WaitBetweenSpawns 2
+			TotalCurrency 300		
+		
+			TFBot
+			{
+				Class Soldier
+				Skill Expert
+				WeaponRestrictions PrimaryOnly
+				Item "The Direct Hit"
+				Item "The Buff Banner"
+				Item "Defiant Spartan"
+				Attributes SpawnWithFullCharge
+				ItemAttributes
+				{
+					ItemName "The Direct Hit"
+					"damage bonus"	9.0 
+				}
+				CharacterAttributes 
+				{
+					"increase buff duration"	19.0					
+				}
+			}
+		}
+		WaveSpawn //WAVE 06b: [GIANT] 4(8) total, 4(8) active, Heavyweapons (Always Crit + Giant medic)
+		{
+			Name "wave06b"
+			Where spawnbot
+			TotalCount 8
+			MaxActive 8
+			SpawnCount 2
+			WaitForAllSpawned "wave06a"
+			WaitBeforeStarting 0
+			WaitBetweenSpawns 30
+			TotalCurrency 400		
+		
+			Squad
+			{
+				TFBot
+				{
+					Template T_TFBot_Giant_Heavyweapons_Deflector
+					Name "Dream Destroyer" 
+					Health 95000
+					Attributes UseBossHealthBar
+					Attributes AlwaysCrit
+					Item "The Crone's Dome"
+				}
+				TFBot
+				{
+					Template T_TFBot_Giant_Medic
+					Health 7500
+					Item "The Warsworn Helmet"
+				}
+			}
+		}
+	//STAGE 07 //Currency 1300 ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		WaveSpawn //WAVE 07a: [4 TANKS]  
+		{
+			Name "wave07"
+			TotalCount 4
+			WaitForAllDead "wave06b"
+			WaitBeforeStarting 10
+			WaitBetweenSpawns 30
+			TotalCurrency 1100
+			
+			FirstSpawnOutput                                                                                                                                                            
+			{
+				 Target boss_spawn_relay                                            
+				 Action Trigger                         
+			}
+
+			Tank
+			{
+				Health 42000
+				Speed 75
+				Name "tankboss"
+				StartingPathTrackNode "boss_path_1"
+
+				OnKilledOutput                                  
+				{
+					Target boss_dead_relay
+					Action Trigger                         
+				}
+				
+				OnBombDroppedOutput                             
+				{
+					Target boss_deploy_relay 
+					Action Trigger                         
+				}
+			}
+		}
+		WaveSpawn //WAVE 07b: 255 total, 16 active, Spy 
+		{
+			Name "wave07"
+			Where spawnbot
+			TotalCount 255
+			MaxActive 16
+			SpawnCount 8
+			WaitForAllDead "wave06b"
+			WaitBeforeStarting 40
+			WaitBetweenSpawns 5
+			TotalCurrency 200		
+		
+			TFBot
+			{
+				Class Spy
+				Skill Expert
+			}
+		}
+		WaveSpawn //WAVE 07c: [GIANT] 10 total, 5 active, Soldier
+		{
+			Name "wave07"
+			Where spawnbot
+			TotalCount 10
+			MaxActive 5
+			Spawncount 1
+			WaitForAllDead "wave06"
+			WaitBeforeSpawning 25
+			WaitBetweenSpawns 60
+			TotalCurrency 200
+
+			TFBot
+			{
+				Template T_TFBot_Giant_Soldier_SlowBarrage
+				Name "Hope Eraser"
+				Health 97500
+				Attributes MiniBoss
+				Attributes AlwaysCrit
+				Attributes UseBossHealthBar
+			}
+		}
+	//STAGE 08 //Currency 1600 ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		WaveSpawn //WAVE 08a: 75 total, 20 active, Sniper (Huntsman)
+		{
+			Name "wave08a"
+			Where spawnbot_scattered
+			RandomSpawn 1
+			TotalCount 75
+			MaxActive 20
+			SpawnCount 5
+			WaitForAllDead "wave07"
+			WaitBeforeStarting 10
+			WaitBetweenSpawns 1
+			TotalCurrency 300		
+		
+			TFBot
+			{
+				Template T_TFBot_Sniper_Huntsman
+				Skill Expert
+				Item "Larrikin Robin"
+				Attributes AlwaysCrit
+				ItemAttributes
+				{
+					ItemName "The Huntsman"
+					"damage bonus"	1.5
+					"faster reload rate" 0.2
+				}
+			}
+		}
+		WaveSpawn //WAVE 08b: 75 total, 20 active, Soldier (Always Crit)
+		{
+			Name "wave08b"
+			Where spawnbot_scattered
+			RandomSpawn 1
+			TotalCount 75
+			MaxActive 20
+			SpawnCount 5
+			WaitForAllSpawned "wave08a"
+			WaitBeforeStarting 10
+			WaitBetweenSpawns 1
+			TotalCurrency 300		
+		
+			TFBot
+			{
+				Class Soldier
+				Skill Expert
+				Attributes AlwaysCrit
+				Item "Defiant Spartan"
+				ItemAttributes
+				{
+					ItemName "TF_WEAPON_ROCKETLAUNCHER"
+					"damage bonus"	2.0
+					"faster reload rate" -0.8
+					"fire rate bonus" 0.6
+				}
+			}
+		}
+		WaveSpawn //WAVE 08c: 75 total, 20 active, Demoman (Always Crit)
+		{
+			Name "wave08c"
+			Where spawnbot_scattered
+			RandomSpawn 1
+			TotalCount 75
+			MaxActive 20
+			SpawnCount 5
+			WaitForAllSpawned "wave08b"
+			WaitBeforeStarting 5
+			WaitBetweenSpawns 1
+			TotalCurrency 200		
+		
+			TFBot
+			{
+				Class Demoman
+				Skill Expert
+				Attributes AlwaysCrit
+				Item "Spine-Chilling Skull"
+				ItemAttributes
+				{
+					ItemName "TF_WEAPON_GRENADELAUNCHER"
+					"damage bonus"	2.0
+					"faster reload rate" -0.8
+					"Projectile speed increased" 2.0
+				}
+			}
+		}
+		WaveSpawn //WAVE 08d: 75 total, 20 active, Pyro (Always Crit)
+		{
+			Name "wave08d"
+			Where spawnbot_scattered
+			RandomSpawn 1
+			TotalCount 75
+			MaxActive 20
+			SpawnCount 5
+			WaitForAllSpawned "wave08c"
+			WaitBeforeStarting 10
+			WaitBetweenSpawns 1
+			TotalCurrency 200		
+		
+			TFBot
+			{
+				Class Pyro
+				Skill Expert
+				Attributes AlwaysCrit
+				Item "Old Guadalajara"
+				ItemAttributes
+				{
+					ItemName "TF_WEAPON_FLAMETHROWER"
+					"damage bonus"	2.0
+				}
+				CharacterAttributes
+				{
+					
+					"move speed bonus"	1.5
+				}
+			}
+		}
+		WaveSpawn //WAVE 08e: 75 total, 20 active, Scout (Always Crit)
+		{
+			Name "wave08e"
+			Where spawnbot_scattered
+			RandomSpawn 1
+			TotalCount 75
+			MaxActive 20
+			SpawnCount 5
+			WaitForAllSpawned "wave08d"
+			WaitBeforeStarting 5
+			WaitBetweenSpawns 1
+			TotalCurrency 200		
+		
+			TFBot
+			{
+				Class Scout
+				Skill Expert
+				Attributes AlwaysCrit
+				Item "Point and Shoot"
+			}
+		}
+		WaveSpawn //WAVE 08f: 48 total, 22 active, Heavyweapons (Always Crit + Uber medic)
+		{
+			Name "wave08f"
+			Where spawnbot_scattered
+			RandomSpawn 1
+			TotalCount 48
+			MaxActive 22
+			SpawnCount 4
+			WaitForAllSpawned "wave08e"
+			WaitBeforeStarting 5
+			WaitBetweenSpawns 1
+			TotalCurrency 200		
+		
+			Squad
+			{
+				TFBot
+				{
+					Class Heavyweapons
+					Skill Expert
+					Attributes AlwaysCrit
+					Item "The Crone's Dome"
+					ItemAttributes
+					{
+						ItemName "TF_WEAPON_MINIGUN"
+						"damage bonus"	1.5
+					}
+				}
+				TFBot
+				{
+					Template T_TFBot_Medic_QuickUber
+					Item "The Warsworn Helmet"
+				}
+			}
+		}
+		WaveSpawn //WAVE 08g: [GIANT] 5 total, 5 active, Soldier
+		{
+			Name "wave08"
+			Where spawnbot
+			TotalCount 5
+			MaxActive 5
+			Spawncount 1
+			WaitForAllDead "wave07"
+			WaitBeforeSpawning 25
+			WaitBetweenSpawns 60
+			TotalCurrency 200
+
+			TFBot
+			{
+				Template T_TFBot_Chief_Demo_Atomic
+				Name "Hope Eraser"
+				Health 97500
+				Attributes MiniBoss
+				Attributes AlwaysCrit
+				Attributes UseBossHealthBar
+			}
+		}
+		WaveSpawn //WAVE 08h: [FINAL TANK]  
+		{
+			Name "wave08g"
+			TotalCount 1
+			WaitForAllDead "wave08d"
+			WaitBeforeStarting 20
+			WaitBetweenSpawns 0
+			TotalCurrency 0
+			
+			FirstSpawnOutput                                                                                                                                                            
+			{
+				 Target boss_spawn_relay                                            
+				 Action Trigger                         
+			}
+
+			Tank
+			{
+				Health 60000
+				Speed 75
+				Name "tankboss"
+				Skin 1
+				StartingPathTrackNode "boss_path_1"
+
+				OnKilledOutput                                  
+				{
+					Target boss_dead_relay
+					Action Trigger                         
+				}
+				
+				OnBombDroppedOutput                             
+				{
+					Target boss_deploy_relay 
+					Action Trigger                         
+				}
+			}
+		}
+	}	
+}
